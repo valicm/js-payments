@@ -31,7 +31,7 @@ before_script:
 _browserStackTests: &browserStackTests
   if: env(TESTS_TYPE)=fullTest OR branch IN (env(BRANCH_WITH_FULL_TESTS), feature/travis-improvements-spike) # TODO change back to only run if on BRANCH_WITH_FULL_TESTS
   stage: Behavioral test
-  script: ${DOCKER_TAG} -e OS=$OS -e OS_VERSION=$OS_VERSION -e BROWSER=$BROWSER -e BROWSER_VERSION=$BROWSER_VERSION -e BS_ACCESS_KEY=$BROWSERSTACK_ACCESS_KEY -e BS_USERNAME=$BROWSERSTACK_USERNAME -e BS_LOCAL_IDENTIFIER=$BROWSERSTACK_LOCAL_IDENTIFIER -e BUILD_NAME=$BUILD_NAME -e REMOTE=true tests poetry run behave features --tags=$TEST_TAG
+  script: ${DOCKER_TAG} -e OS="$OS" -e OS_VERSION="$OS_VERSION" -e BROWSER="$BROWSER" -e BROWSER_VERSION="$BROWSER_VERSION" -e BS_ACCESS_KEY=$BROWSERSTACK_ACCESS_KEY -e BS_USERNAME=$BROWSERSTACK_USERNAME -e BS_LOCAL_IDENTIFIER=$BROWSERSTACK_LOCAL_IDENTIFIER -e BUILD_NAME=$BUILD_NAME -e REMOTE=true tests poetry run behave features --tags=$TEST_TAG
 
 _browserStackSmokeTests: &browserStackSmokeTests
   <<: *browserStackTests
