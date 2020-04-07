@@ -12,6 +12,8 @@ env:
     - RUN_TESTS="-e REMOTE=true tests poetry run behave features" # TODO remove once all converted and RUN_TESTS is no longer needed
     - BUILD_NAME=${DOCKER_BRANCH}/$TRAVIS_BUILD_NUMBER
 
+os: linux
+dist: xenial
 language: node_js
 node_js:
   - 10
@@ -60,12 +62,12 @@ jobs:
       if: env(TESTS_TYPE)=fullTest OR branch IN (env(BRANCH_WITH_FULL_TESTS), develop)
       script:
         - ${DOCKER_TAG} tests poetry run behave features --tags=$FULL_TESTS_TAG
-    - name: "Behavioural test: chrome 79, Windows 8.1"
-      <<: *browserStackSmokeTests
+    - <<: *browserStackSmokeTests
+      name: "Behavioural test: chrome 79, Windows 8.1"
       env: OS=Windows OS_VERSION=8.1 BROWSER=chrome BROWSER_VERSION=79.0
-    - name: "Behavioural test: chrome 80, OS X Mojave"
-      <<: *browserStackSmokeTests
-        env: OS="OS X" OS_VERSION=Mojave BROWSER=chrome BROWSER_VERSION=80.0
+    - <<: *browserStackSmokeTests
+      name: "Behavioural test: chrome 80, OS X Mojave"
+      env: OS="OS X" OS_VERSION=Mojave BROWSER=chrome BROWSER_VERSION=80.0
     - name: "Behavioural test: chrome 80, OS X Catalina"
       if: env(TESTS_TYPE)=fullTest OR branch = env(BRANCH_WITH_FULL_TESTS)
       script:
