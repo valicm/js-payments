@@ -74,3 +74,21 @@ input:-webkit-autofill.error-field {
   border: 1px solid #6d6d6d;
   border-radius: 4px;
 }
+
+iframe {
+  animation: pulse 1s infinite ease-in-out
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(165, 165, 165, .1);
+  }
+
+  50% {
+    background-color: rgba(165, 165, 165, .3)
+  }
+
+  100% {
+    background-color: rgba(165, 165, 165, 1)
+  }
+}
