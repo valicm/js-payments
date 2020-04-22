@@ -116,7 +116,6 @@ class ST {
           ...(config || {})
         }
       });
-      this._commonFrames.requestTypes = this._config.components.requestTypes;
       this.CardinalCommerce();
       await this._communicator.query({ type: MessageBus.EVENTS_PUBLIC.CONFIG_CHECK }, controlFrame);
       this.CardFrames();
@@ -212,18 +211,7 @@ class ST {
   }
 
   private CommonFrames(): void {
-    this._commonFrames = new CommonFrames(
-      this._config.jwt,
-      this._config.origin,
-      this._config.componentIds,
-      this._config.styles,
-      this._config.submitOnSuccess,
-      this._config.submitOnError,
-      this._config.submitFields,
-      this._config.datacenterurl,
-      this._config.animatedCard,
-      this._config.components.requestTypes
-    );
+    this._commonFrames = new CommonFrames(this._configProvider, this._messageBus);
   }
 
   private Environment(): { applepay: any; cardinal: any; visa: any } {

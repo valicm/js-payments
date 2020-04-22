@@ -1,63 +1,25 @@
 import { Container } from 'typedi';
 import { IStyles } from '../../shared/model/config/IStyles';
-import { MessageBus } from '../../application/core/shared/MessageBus';
-import { StJwt } from '../../application/core/shared/StJwt';
+import { ConfigProvider } from '../../application/core/services/ConfigProvider';
+import { IConfig } from '../../shared/model/config/IConfig';
 
-export class RegisterFrames {
-  private static COMPLETE_FORM_FIELDS: string[] = ['pan', 'expirydate', 'securitycode'];
-
+export abstract class RegisterFrames {
   protected styles: IStyles;
-  protected params: any;
+  protected config: IConfig;
   protected elementsToRegister: HTMLElement[];
   protected elementsTargets: string[];
-  protected jwt: string;
-  protected origin: string;
-  protected componentIds: any;
-  protected hasAnimatedCard: boolean;
-  protected submitCallback: any;
-  protected fieldsToSubmit: string[];
-  protected messageBus: MessageBus;
-  private stJwt: StJwt;
 
-  constructor(
-    jwt: string,
-    origin: string,
-    componentIds: {},
-    styles: IStyles,
-    animatedCard: boolean,
-    fieldsToSubmit?: string[]
-  ) {
-    this.messageBus = Container.get(MessageBus);
-    this.fieldsToSubmit = fieldsToSubmit || RegisterFrames.COMPLETE_FORM_FIELDS;
-    this.componentIds = componentIds;
-    this.hasAnimatedCard = animatedCard;
-    this.elementsToRegister = [];
-    this.jwt = jwt;
-    this.origin = origin;
-    this.styles = this._getStyles(styles);
-    this.configureFormFieldsAmount(jwt);
-    this.elementsTargets = this.setElementsFields();
-    this.registerElements(this.elementsToRegister, this.elementsTargets);
-    this.stJwt = new StJwt(jwt);
-    this.params = { locale: this.stJwt.locale, origin: this.origin };
+  protected constructor() {
+    const configProvider = Container.get(ConfigProvider);
+    this.config = configProvider.getConfig();
+    this.styles = this._getStyles(this.config.styles);
   }
 
-  protected registerElements(fields: HTMLElement[], targets: string[]) {
-    targets.map((item, index) => {
-      const itemToChange = document.getElementById(item);
-      itemToChange.appendChild(fields[index]);
-    });
-  }
+  protected abstract registerElements(fields: HTMLElement[], targets: string[]): void;
 
-  protected configureFormFieldsAmount(jwt: string): any {
-    return [];
-  }
+  protected abstract setElementsFields(): string[];
 
-  protected setElementsFields(): any {
-    return [];
-  }
-
-  private _getStyles(styles: any) {
+  private _getStyles(styles: any): IStyles {
     for (const key in styles) {
       if (styles[key] instanceof Object) {
         return styles;
