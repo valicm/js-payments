@@ -48,6 +48,7 @@ export const ConfigSchema: Joi.ObjectSchema = Joi.object().keys({
   ),
   /** @deprecated use init:{ cachetoken: ''} instead */
   cachetoken: Joi.string().allow(''),
+  cancelCallback: Joi.any(),
   componentIds: Joi.object()
     .keys({
       animatedCard: Joi.string().allow('').default('st-animated-card'),
@@ -72,6 +73,7 @@ export const ConfigSchema: Joi.ObjectSchema = Joi.object().keys({
   datacenterurl: Joi.string().allow(''),
   deferInit: Joi.boolean(),
   disableNotification: Joi.boolean().default(false),
+  errorCallback: Joi.any(),
   fieldsToSubmit: Joi.array().items(Joi.string().valid('pan', 'expirydate', 'securitycode')),
   formId: Joi.string(),
   init: Joi.object()
@@ -96,8 +98,8 @@ export const ConfigSchema: Joi.ObjectSchema = Joi.object().keys({
   styles: Joi.object(),
   submitCallback: Joi.any(),
   successCallback: Joi.any(),
-  errorCallback: Joi.any(),
   submitFields: Joi.array(),
+  submitOnCancel: Joi.boolean(),
   submitOnError: Joi.boolean(),
   submitOnSuccess: Joi.boolean(),
   /** @deprecated use init:{ threedinit: ''} instead */

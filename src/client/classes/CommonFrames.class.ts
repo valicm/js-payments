@@ -7,6 +7,7 @@ import { Validation } from '../../application/core/shared/Validation';
 import { RegisterFrames } from './RegisterFrames.class';
 import { Container } from 'typedi';
 import { BrowserLocalStorage } from '../../shared/services/storage/BrowserLocalStorage';
+import { Language } from '../../application/core/shared/Language';
 
 export class CommonFrames extends RegisterFrames {
   private static readonly COMPLETED_REQUEST_TYPES = ['AUTH', 'CACHETOKENISE', 'ACCOUNTCHECK'];
@@ -111,7 +112,11 @@ export class CommonFrames extends RegisterFrames {
     }
     if (this._shouldSubmitForm(data)) {
       const form = this._merchantForm;
-      DomMethods.addDataToForm(form, data, this._getSubmitFields(data));
+      let formData = data;
+      if (this._submitOnCancel) {
+        formData = Object.assign(data, { errormessage: Language.translations.PAYMENT_CANCELLED });
+      }
+      DomMethods.addDataToForm(form, formData, this._getSubmitFields(data));
       form.submit();
     }
   }
@@ -141,7 +146,8 @@ export class CommonFrames extends RegisterFrames {
   private _shouldSubmitForm(data: any): boolean {
     return (
       (this.config.submitOnSuccess && data.errorcode === '0' && this._isTransactionFinished(data)) ||
-      (this.config.submitOnError && data.errorcode !== '0')
+      (this.config.submitOnError && data.errorcode !== '0') ||
+      (this.config.submitOnCancel && data.errorcode !== '0')
     );
   }
 }

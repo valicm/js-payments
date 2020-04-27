@@ -74,6 +74,13 @@ class ST {
       this.off('error');
     }
   }
+  set cancelCallback(callback: (event: IErrorEvent) => void) {
+    if (callback) {
+      this.on('cancel', callback);
+    } else {
+      this.off('cancel');
+    }
+  }
 
   constructor(
     @Inject(CONFIG) private _config: IConfig,
@@ -93,6 +100,7 @@ class ST {
 
   public on(event: string, callback: any): void {
     const events = {
+      cancel: MessageBus.EVENTS_PUBLIC.CALL_MERCHANT_CANCEL_CALLBACK,
       success: MessageBus.EVENTS_PUBLIC.CALL_MERCHANT_SUCCESS_CALLBACK,
       error: MessageBus.EVENTS_PUBLIC.CALL_MERCHANT_ERROR_CALLBACK,
       submit: MessageBus.EVENTS_PUBLIC.CALL_MERCHANT_SUBMIT_CALLBACK
@@ -275,6 +283,10 @@ class ST {
 
     if (this._config.errorCallback) {
       this.errorCallback = this._config.errorCallback;
+    }
+
+    if (this._config.cancelCallback) {
+      this.cancelCallback = this._config.cancelCallback;
     }
   }
 }
