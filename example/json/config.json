@@ -13,6 +13,12 @@
         "supportsCredit",
         "supportsDebit"
       ],
+      "requestTypes": [
+        "RISKDEC",
+        "ACCOUNTCHECK",
+        "THREEDQUERY",
+        "AUTH"
+      ],
       "supportedNetworks": [],
       "total": {
         "label": "Secure Trading Merchant",
@@ -22,7 +28,14 @@
     "placement": "st-apple-pay"
   },
   "buttonId": "merchant-submit-button",
-  "bypassCards": ["PIBA"],
+  "bypassCards": [
+    "VISA",
+    "MASTERCARD",
+    "AMEX",
+    "DISCOVER",
+    "JCB",
+    "DINERS"
+  ],
   "cancelCallback": null,
   "componentIds": {
     "animatedCard": "",
@@ -33,7 +46,12 @@
   },
   "components": {
     "defaultPaymentType": "",
-    "requestTypes": [],
+    "requestTypes": [
+      "THREEDQUERY",
+      "RISKDEC",
+      "ACCOUNTCHECK",
+      "AUTH"
+    ],
     "paymentTypes": [],
     "startOnLoad": false
   },
@@ -103,6 +121,12 @@
     "paymentRequest": {
       "subtotal": "20.00"
     },
+    "requestTypes": [
+      "RISKDEC",
+      "ACCOUNTCHECK",
+      "THREEDQUERY",
+      "AUTH"
+    ],
     "placement": "st-visa-checkout",
     "settings": {
       "displayName": "My Test Site"

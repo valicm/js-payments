@@ -72,7 +72,12 @@ export class SecurityCode extends FormField {
       map(jwt => JwtDecode<IDecodedJwt>(jwt).payload.pan)
     );
 
-    return merge(cardNumberInput$, cardNumberFromJwt$).pipe(
+    const maskedPanFromJsInit$: Observable<string> = this._messageBus.pipe(
+      ofType(MessageBus.EVENTS_PUBLIC.JSINIT_RESPONSE),
+      map((event: IMessageBusEvent) => event.data.maskedpan)
+    );
+
+    return merge(cardNumberInput$, cardNumberFromJwt$, maskedPanFromJsInit$).pipe(
       map(cardNumber => (cardNumber ? iinLookup.lookup(cardNumber).cvcLength[0] : 3))
     );
   }
