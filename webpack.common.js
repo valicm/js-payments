@@ -105,6 +105,14 @@ module.exports = {
         flatten: true
       }]
     }),
+    new CopyPlugin({
+      patterns: [{
+        from: 'example/scripts/*.js',
+        to: 'scripts',
+        force: true,
+        flatten: true
+      }]
+    }),
     new StyleLintPlugin(),
     new FriendlyErrorsWebpackPlugin()
   ],

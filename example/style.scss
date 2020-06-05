@@ -2,6 +2,7 @@
 @import '../src/styles/placeholders';
 @import '../src/styles/core';
 
+
 %iframe {
   height: 9.1rem;
   width: 100%;
@@ -115,4 +116,14 @@ body {
 
 #st-control-frame-iframe {
   display: none;
+}
+
+footer {
+  background-color: #0a0a0a;
+  color: #fff;
+  min-height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 4rem;
 }
