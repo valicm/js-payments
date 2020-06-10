@@ -7,103 +7,139 @@
     <meta name="description" content="Secure Trading example page with form">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="icon" href="./img/favicon-16x16-1.png" sizes="32x32">
-    <link rel="icon" href="./img/favicon-16x16-1.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="./img/favicon-16x16-1.png">
+    <link rel="icon" href="img/favicon.png" sizes="32x32">
+    <link rel="icon" href="img/favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="img/favicon.png">
     <script src="<%= WEBSERVICES_URL %>/st.js"></script>
 </head>
 
 <body>
 <main>
 
-    <header>
-        <h1 class="example-form__title">
-            <span>Secure Trading</span>
-            <span>AMOUNT: </span>
-            <strong>10.00 GBP</strong>
-        </h1>
+    <header class="st-header">
+        <figure>
+            <img src="./img/example/st-logo.png" alt="Secure Trading logo" title="Secure Trading" role="img">
+        </figure>
+        <h1>Example Form</h1>
     </header>
 
-    <form role="form" name="st-form" id="st-form" class="example-form" autocomplete="off" novalidate>
+    <form role="form" name="st-form" id="st-form" class="st-form" autocomplete="off" novalidate>
 
-        <div id="st-popup"></div>
+        <div id="st-popup" class="st-popup"></div>
 
-        <div class="example-form__section example-form__section--horizontal">
-            <div class="example-form__group">
-                <label for="example-form-name" class="example-form__label">amount: </label>
+        <div class="st-form__group">
+            <span class="st-form__price">Price: </span>
+            <span id="st-price"></span>
+            <span id="st-currency"></span>
+        </div>
+
+        <div class="st-form__field">
+            <fieldset>
+                <legend>Title</legend>
+                <div>
+                    <label for="title_1">
+                        <input type="radio" id="title_1" name="title" value="K">
+                        Mr.
+                    </label>
+                </div>
+                <div>
+                    <label for="title_2">
+                        <input type="radio" id="title_2" name="title" value="Q">
+                        Ms.
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="st-form__group">
+            <div class="st-form__field">
+                <label for="st-form-name" class="st-form__label">
+                    amount:
+                    <abbr title="required" aria-label="required">*</abbr>
+                </label>
                 <input type="number"
                        name="myBillAmount"
-                       id="example-form-amount"
-                       class="example-form__input"
+                       id="st-form-amount"
+                       class="st-form__input"
                        placeholder="myBillAmount"
                        data-st-name="billingamount"
                        autocomplete="amount"
                 />
             </div>
+            <div class="st-form__field">
+                <select name="myBillSubscribe"
+                        id="st-form-subscribe"
+                        class="st-form__input"
+                        placeholder="myBillSubscribe"
+                        autocomplete="subscribe">
+                    <option value="one-off payment">one-off payment</option>
+                    <option value="monthly payment">monthly payment</option>
+                </select>
+            </div>
         </div>
 
-        <div class="example-form__section example-form__section--horizontal">
+        <div class="st-form__group">
 
-            <div class="example-form__group">
-                <label for="example-form-name" class="example-form__label">name: </label>
+            <div class="st-form__field">
+                <label for="st-form-name" class="st-form__label">name: </label>
                 <input type="text"
                        name="myBillName"
-                       id="example-form-name"
-                       class="example-form__input"
+                       id="st-form-name"
+                       class="st-form__input"
                        placeholder="John Doe"
                        data-st-name="billingfirstname"
                        autocomplete="name"
                 />
             </div>
 
-            <div class="example-form__group">
-                <label for="example-form-email" class="example-form__label">e-mail: </label>
+            <div class="st-form__field">
+                <label for="st-form-email" class="st-form__label">e-mail: </label>
                 <input type="email"
                        name="myBillEmail"
-                       id="example-form-email"
-                       class="example-form__input"
+                       id="st-form-email"
+                       class="st-form__input"
                        placeholder="test@mail.com"
                        data-st-name="billingemail"
                        autocomplete="email"
                 />
             </div>
 
-            <div class="example-form__group">
-                <label for="example-form-phone" class="example-form__label">phone: </label>
+            <div class="st-form__field">
+                <label for="st-form-phone" class="st-form__label">phone: </label>
                 <input type="tel"
                        name="myBillTel"
-                       id="example-form-phone"
-                       class="example-form__input"
+                       id="st-form-phone"
+                       class="st-form__input"
                        placeholder="+00 000 000 000"
                        autocomplete="tel"
                 />
             </div>
         </div>
 
-        <div class="example-form__spacer"></div>
+        <div class="st-form__spacer"></div>
 
-        <div class="example-form__section">
-            <div id="st-notification-frame" class="example-form__group"></div>
-            <div id="st-card-number" class="example-form__group"></div>
-            <div id="st-expiration-date" class="example-form__group"></div>
-            <div id="st-security-code" class="example-form__group"></div>
-            <div class="example-form__spacer"></div>
+        <div class="st-form__section">
+            <div id="st-notification-frame" class="st-form__group"></div>
+            <div id="st-card-number" class="st-form__group"></div>
+            <div id="st-expiration-date" class="st-form__group"></div>
+            <div id="st-security-code" class="st-form__group"></div>
+            <div class="st-form__spacer"></div>
         </div>
 
-        <div class="example-form__section">
+        <div class="st-form__section">
 
-            <div class="example-form__group example-form__group--submit">
-                <button type="submit" class="example-form__button" id="merchant-submit-button">Zapłać</button>
+            <div class="st-form__group st-form__group--submit">
+                <button type="submit" class="st-form__button" id="merchant-submit-button">Zapłać</button>
             </div>
         </div>
 
-        <div class="example-form__section">
-            <div id="st-control-frame" class="example-form__group"></div>
-            <div id="st-visa-checkout" class="example-form__group"></div>
-            <div id="st-apple-pay" class="example-form__group"></div>
+        <div class="st-form__section">
+            <div id="st-control-frame" class="st-form__group"></div>
+            <div id="st-visa-checkout" class="st-form__group"></div>
+            <div id="st-apple-pay" class="st-form__group"></div>
         </div>
 
-        <div id="st-animated-card" class="example-form__st-animated-card"></div>
+        <div id="st-animated-card" class="st-form__st-animated-card"></div>
     </form>
 
     <footer>
@@ -111,11 +147,11 @@
     </footer>
 
 </main>
-<script src="./scripts/display-popup.js"></script>
-<script src="./scripts/fetch-default-config.js"></script>
-<script src="./scripts/update-jwt.js"></script>
-<script src="./scripts/config-from-json.js"></script>
-<script src="./scripts/init-from-json.js"></script>
+<script src="js/display-popup.js"></script>
+<script src="js/fetch-default-config.js"></script>
+<script src="js/update-jwt.js"></script>
+<script src="js/config-from-json.js"></script>
+<script src="js/init-from-json.js"></script>
 </body>
 
 </html>

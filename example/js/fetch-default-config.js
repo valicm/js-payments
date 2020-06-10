@@ -1,4 +1,4 @@
-var localConfigUrl = './../json/config.json';
+var localConfigUrl = './config.json';
 var defaultConfigError = 'Default configuration has not been set !';
 var okStatusNumber = 200;
 
