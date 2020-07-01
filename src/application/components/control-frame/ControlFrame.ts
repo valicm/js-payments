@@ -59,6 +59,15 @@ export class ControlFrame extends Frame {
   private static _updateJwt(jwt: string): void {
     StCodec.jwt = jwt;
     StCodec.originalJwt = jwt;
+    console.error(JwtDecode<IDecodedJwt>(jwt).payload);
+    // here should be set masked pan / card number
+
+    // this._sessionStorage.setItem('app.maskedpan', this._slicedPan);
+    //
+    // this.messageBus.publish({
+    //   type: MessageBus.EVENTS_PUBLIC.BIN_PROCESS,
+    //   data: this._slicedPan
+    // });
   }
 
   private _card: ICard = {
@@ -92,10 +101,13 @@ export class ControlFrame extends Frame {
     this.messageBus
       .pipe(
         ofType(MessageBus.EVENTS_PUBLIC.JSINIT_RESPONSE),
+        tap(console.error),
         filter((event: IMessageBusEvent<IThreeDInitResponse>) => Boolean(event.data.maskedpan)),
+        tap(console.error),
         map((event: IMessageBusEvent<IThreeDInitResponse>) => event.data.maskedpan)
       )
       .subscribe((maskedpan: string) => {
+        console.error(maskedpan);
         this._slicedPan = maskedpan.slice(0, 6);
         this._sessionStorage.setItem('app.maskedpan', this._slicedPan);
 
